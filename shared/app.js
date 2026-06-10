@@ -1,6 +1,7 @@
 /* ============================================================
    YOU Organization — Shared Front-End Engine (Vanilla JS)
    Theme · Bilingual i18n (AR-RTL / EN-LTR) · Reveal · Counters
+   Enhanced: Magical Drawer Sidebar, Improved navigation
    ============================================================ */
 (function () {
   'use strict';
@@ -90,25 +91,25 @@
     }, { threshold: 0.5 });
     counters.forEach(c => cio.observe(c));
 
-    /* Mobile nav */
+    /* ---------- MAGICAL DRAWER (Sidebar) ---------- */
     const toggle = document.querySelector('[data-nav-toggle]');
-    const menu = document.querySelector('[data-nav-menu]');
-    if (toggle && menu) {
+    const drawer = document.querySelector('[data-magical-drawer]');
+    if (toggle && drawer) {
       const backdrop = document.createElement('div');
       backdrop.className = 'nav-backdrop';
       document.body.appendChild(backdrop);
 
-      const toggleMenu = () => {
-        const isOpen = menu.classList.toggle('open');
+      const toggleDrawer = () => {
+        const isOpen = drawer.classList.toggle('open');
         backdrop.classList.toggle('active', isOpen);
         toggle.setAttribute('aria-expanded', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
       };
 
-      toggle.addEventListener('click', toggleMenu);
-      backdrop.addEventListener('click', toggleMenu);
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        if(menu.classList.contains('open')) toggleMenu();
+      toggle.addEventListener('click', toggleDrawer);
+      backdrop.addEventListener('click', toggleDrawer);
+      drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        if(drawer.classList.contains('open')) toggleDrawer();
       }));
     }
 
@@ -163,7 +164,7 @@
     }
   });
 
-  /* ---------- ADMIN LOGIN SYSTEM (Enhanced) ---------- */
+  /* ---------- ADMIN LOGIN SYSTEM ---------- */
   window.openAdminLogin = function() {
     const modal = document.getElementById('adminLoginModal');
     if(modal) modal.classList.add('active');
@@ -190,14 +191,6 @@
       err.hidden = false;
     }
   };
-
-  // Close modal when clicking outside the card
-  document.addEventListener('click', function(e) {
-    const modal = document.getElementById('adminLoginModal');
-    if(e.target === modal) {
-      window.closeAdminLogin();
-    }
-  });
 
   window.adminLogout = function() {
     sessionStorage.removeItem('adminLoggedIn');
