@@ -17,7 +17,11 @@
 <header class="site-header" data-header>
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="../shared/logo.svg" alt="YOU for Peace and Development">
+      <img src="../shared/logo.svg" alt="YOU Logo">
+      <div class="brand-text">
+        <span class="brand-title" data-ar="منظمة يو" data-en="YOU Org">منظمة يو</span>
+        <span class="brand-subtitle" data-ar="للسلام والتنمية" data-en="For Peace & Dev">للسلام والتنمية</span>
+      </div>
     </a>
     <div class="nav-primary-links">
       <a href="index.html" class="active" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
@@ -28,34 +32,81 @@
       <a href="volunteers.html" data-ar="التطوع" data-en="Volunteer">التطوع</a>
     </div>
     <div class="nav-actions">
+      <a href="support.html" class="header-donate-btn" data-ar="تبرّع" data-en="Donate">تبرّع</a>
+      <a href="volunteers.html" class="header-volunteer-btn" data-ar="تطوّع" data-en="Volunteer">تطوّع</a>
       <button class="icon-btn" onclick="YOUtoggleLang()" aria-label="Language"><span data-lang-label>EN</span></button>
       <button class="icon-btn" onclick="YOUtoggleTheme()" aria-label="Theme"><span data-theme-icon>🌙</span></button>
+      <button class="icon-btn" onclick="openAdminLogin()" aria-label="Admin Profile"><span class="ic">👤</span></button>
       <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </div>
 </header>
 
 <!-- Magical Drawer -->
-<div class="nav-backdrop" data-nav-backdrop></div>
 <aside class="magical-drawer" data-nav-menu>
   <div class="drawer-header">
+    <div class="drawer-brand">
+      <img src="../shared/logo.svg" alt="YOU Logo" class="drawer-logo">
+      <div class="brand-text">
+        <span class="brand-title" data-ar="منظمة يو" data-en="YOU Org">منظمة يو</span>
+        <span class="brand-subtitle" data-ar="للسلام والتنمية" data-en="For Peace & Dev">للسلام والتنمية</span>
+      </div>
+    </div>
     <span class="drawer-close" data-nav-toggle>✕</span>
   </div>
   <div class="drawer-body">
-    <a href="index.html" class="active" style="--i:1"><span class="ic">🏠</span> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
-    <a href="about.html" style="--i:2"><span class="ic">📖</span> <span data-ar="من نحن" data-en="About">من نحن</span></a>
-    <a href="programs.html" style="--i:3"><span class="ic">📚</span> <span data-ar="البرامج" data-en="Programs">البرامج</span></a>
-    <a href="projects.html" style="--i:4"><span class="ic">📁</span> <span data-ar="المشاريع" data-en="Projects">المشاريع</span></a>
-    <a href="news.html" style="--i:5"><span class="ic">📰</span> <span data-ar="الإعلام" data-en="Media">الإعلام</span></a>
-    <a href="transparency.html" style="--i:6"><span class="ic">🔍</span> <span data-ar="الشفافية" data-en="Transparency">الشفافية</span></a>
-    <a href="volunteers.html" style="--i:7"><span class="ic">🤝</span> <span data-ar="التطوع" data-en="Volunteer">التطوع</span></a>
-    <a href="training.html" style="--i:8"><span class="ic">🎓</span> <span data-ar="التدريب" data-en="Training">التدريب</span></a>
-    <a href="partners.html" style="--i:9"><span class="ic">🤝</span> <span data-ar="الشركاء" data-en="Partners">الشركاء</span></a>
-    <a href="stories.html" style="--i:10"><span class="ic">⭐</span> <span data-ar="قصص ناجحة" data-en="Success Stories">قصص ناجحة</span></a>
-    <a href="contact.html" style="--i:11"><span class="ic">📞</span> <span data-ar="تواصل" data-en="Contact">تواصل</span></a>
-    <a href="support.html" class="btn btn-primary" style="margin-top:1rem; --i:12"><span data-ar="ادعمنا" data-en="Support Us">ادعمنا</span></a>
+    <!-- Section 1: Public Pages -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="📋 الصفحات العامة" data-en="📋 Public Pages">📋 الصفحات العامة</h3>
+      <div class="drawer-links-grid">
+        <a href="index.html" class="drawer-link active" style="--i:1"><span class="ic">🏠</span> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+        <a href="about.html" class="drawer-link" style="--i:2"><span class="ic">📖</span> <span data-ar="من نحن" data-en="About">من نحن</span></a>
+        <a href="programs.html" class="drawer-link" style="--i:3"><span class="ic">📚</span> <span data-ar="البرامج" data-en="Programs">البرامج</span></a>
+        <a href="projects.html" class="drawer-link" style="--i:4"><span class="ic">📁</span> <span data-ar="المشاريع" data-en="Projects">المشاريع</span></a>
+        <a href="news.html" class="drawer-link" style="--i:5"><span class="ic">📰</span> <span data-ar="الأخبار والإعلام" data-en="News & Media">الأخبار والإعلام</span></a>
+        <a href="transparency.html" class="drawer-link" style="--i:6"><span class="ic">🔍</span> <span data-ar="الشفافية والتقارير" data-en="Transparency">الشفافية والتقارير</span></a>
+        <a href="volunteers.html" class="drawer-link" style="--i:7"><span class="ic">🤝</span> <span data-ar="التطوع" data-en="Volunteer">التطوع</span></a>
+        <a href="training.html" class="drawer-link" style="--i:8"><span class="ic">🎓</span> <span data-ar="التدريب والتمكين" data-en="Training">التدريب والتمكين</span></a>
+        <a href="partners.html" class="drawer-link" style="--i:9"><span class="ic">💼</span> <span data-ar="الشركاء والمانحين" data-en="Partners">الشركاء والمانحين</span></a>
+        <a href="stories.html" class="drawer-link" style="--i:10"><span class="ic">⭐</span> <span data-ar="قصص النجاح" data-en="Success Stories">قصص النجاح</span></a>
+        <a href="contact.html" class="drawer-link" style="--i:11"><span class="ic">📞</span> <span data-ar="اتصل بنا" data-en="Contact">اتصل بنا</span></a>
+        <a href="support.html" class="drawer-link" style="--i:12"><span class="ic">❤️</span> <span data-ar="ادعمنا وتبرع" data-en="Support & Donate">ادعمنا وتبرع</span></a>
+        <a href="search.html" class="drawer-link" style="--i:13"><span class="ic">🔍</span> <span data-ar="البحث" data-en="Search">البحث</span></a>
+      </div>
+    </div>
+
+    <!-- Section 2: User Space -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="👤 حساب المستخدم" data-en="👤 User Space">👤 حساب المستخدم</h3>
+      <div class="drawer-links-grid">
+        <a href="volunteers.html#apply" class="drawer-link" style="--i:14"><span class="ic">📝</span> <span data-ar="تقديم طلب تطوع" data-en="Volunteer Request">تقديم طلب تطوع</span></a>
+        <a href="support.html#donate-form" class="drawer-link" style="--i:15"><span class="ic">💳</span> <span data-ar="تبرع سريع" data-en="Quick Donate">تبرع سريع</span></a>
+        <a href="contact.html#message-form" class="drawer-link" style="--i:16"><span class="ic">✉️</span> <span data-ar="أرسل رسالة" data-en="Send Message">أرسل رسالة</span></a>
+      </div>
+    </div>
+
+    <!-- Section 3: Administration -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="🔒 بوابة الإدارة" data-en="🔒 Admin Portal">🔒 بوابة الإدارة</h3>
+      <div class="drawer-links-grid">
+        <a href="javascript:openAdminLogin()" class="drawer-link guest-only-link" style="--i:17"><span class="ic">🔑</span> <span data-ar="تسجيل الدخول" data-en="Admin Login">تسجيل الدخول</span></a>
+        <a href="admin/index.html" class="drawer-link admin-logged-link" style="--i:18; display:none;"><span class="ic">📊</span> <span data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</span></a>
+        <a href="admin/projects.html" class="drawer-link admin-logged-link" style="--i:19; display:none;"><span class="ic">📁</span> <span data-ar="إدارة المشاريع" data-en="Projects Mgt">إدارة المشاريع</span></a>
+        <a href="admin/donations.html" class="drawer-link admin-logged-link" style="--i:20; display:none;"><span class="ic">💰</span> <span data-ar="التبرعات والمانحين" data-en="Donations Mgt">التبرعات والمانحين</span></a>
+        <a href="admin/news.html" class="drawer-link admin-logged-link" style="--i:21; display:none;"><span class="ic">📰</span> <span data-ar="إدارة الإعلام" data-en="Media Mgt">إدارة الإعلام</span></a>
+        <a href="admin/volunteers.html" class="drawer-link admin-logged-link" style="--i:22; display:none;"><span class="ic">🤝</span> <span data-ar="إدارة المتطوعين" data-en="Volunteers Mgt">إدارة المتطوعين</span></a>
+        <a href="admin/reports.html" class="drawer-link admin-logged-link" style="--i:23; display:none;"><span class="ic">📈</span> <span data-ar="التقارير المالية" data-en="Financial Reports">التقارير المالية</span></a>
+        <a href="admin/users.html" class="drawer-link admin-logged-link" style="--i:24; display:none;"><span class="ic">👥</span> <span data-ar="المستخدمين والصلاحيات" data-en="Users Mgt">المستخدمين والصلاحيات</span></a>
+        <a href="admin/settings.html" class="drawer-link admin-logged-link" style="--i:25; display:none;"><span class="ic">⚙️</span> <span data-ar="الإعدادات العامة" data-en="General Settings">الإعدادات العامة</span></a>
+        <a href="javascript:adminLogout()" class="drawer-link admin-logged-link logout-btn-drawer" style="--i:26; display:none; color:var(--danger);"><span class="ic">🚪</span> <span data-ar="تسجيل الخروج" data-en="Logout">تسجيل الخروج</span></a>
+      </div>
+    </div>
   </div>
   <div class="drawer-footer">
+    <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:1rem;">
+      <button class="icon-btn" onclick="YOUtoggleLang()" aria-label="Language" style="width:auto; padding:0 1rem; border-radius:var(--r-full);"><span data-lang-label>EN</span></button>
+      <button class="icon-btn" onclick="YOUtoggleTheme()" aria-label="Theme" style="width:auto; padding:0 1rem; border-radius:var(--r-full);"><span data-theme-icon>🌙</span> <span data-ar="المظهر" data-en="Theme">المظهر</span></button>
+    </div>
     <small>© YOU for Peace and Development</small>
   </div>
 </aside>

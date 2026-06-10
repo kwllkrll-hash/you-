@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -8,553 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/tokens.css">
-<style>
-/* ============================================================
-   YOU Organization — Public Front-End (Premium Redesign)
-   Same legendary design system as previous pages
-   ============================================================ */
-
-/* ---------- Global ---------- */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  transition: background var(--t-slow), color var(--t-slow);
-  overflow-x: hidden;
-}
-
-.section {
-  padding-block: clamp(4rem, 8vw, 6rem);
-}
-
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: clamp(1.2rem, 5vw, 2.5rem);
-}
-
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-weight: 800;
-  padding: 0.85rem 1.8rem;
-  border-radius: var(--r-full);
-  transition: all var(--t) var(--ease-out-expo);
-  font-size: var(--fs-sm);
-  border: 2px solid transparent;
-  line-height: 1.2;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left var(--t-slow) var(--ease);
-}
-
-.btn:hover::after {
-  left: 100%;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--you-green), var(--you-green-400));
-  color: var(--accent-contrast);
-  box-shadow: 0 4px 15px rgba(91,168,41,0.2);
-}
-
-.btn-primary:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: var(--sh-glow);
-}
-
-.btn-nav {
-  background: linear-gradient(135deg, var(--primary), var(--you-navy-600));
-  color: var(--primary-contrast);
-  box-shadow: 0 4px 15px rgba(11,45,82,0.2);
-}
-
-.btn-nav:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: var(--sh-glow-primary);
-}
-
-.btn-outline {
-  border-color: currentColor;
-  backdrop-filter: blur(4px);
-  background: transparent;
-}
-
-.btn-outline:hover {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-  box-shadow: var(--sh-glow-primary);
-}
-
-/* ---------- Glass Header ---------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  transition: padding var(--t) var(--ease-out-expo), box-shadow var(--t), background var(--t);
-  padding-block: 0.6rem;
-  background: transparent;
-}
-
-.site-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(1.5);
-  transition: background var(--t);
-  pointer-events: none;
-}
-
-.site-header.scrolled {
-  box-shadow: var(--sh-md);
-  padding-block: 0.3rem;
-  background: var(--glass-bg);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-weight: 900;
-  color: var(--you-navy);
-  transition: transform var(--t-fast);
-}
-
-.brand:hover {
-  transform: scale(1.04);
-}
-
-[data-theme="dark"] .brand {
-  color: #fff;
-}
-
-.brand img {
-  height: 50px;
-  width: auto;
-  transition: height var(--t);
-}
-
-.site-header.scrolled .brand img {
-  height: 40px;
-}
-
-.nav-primary-links {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.nav-primary-links a {
-  padding: 0.6rem 1rem;
-  border-radius: var(--r-full);
-  font-weight: 800;
-  font-size: var(--fs-sm);
-  color: var(--text-soft);
-  transition: all var(--t) var(--ease-out-expo);
-}
-
-.nav-primary-links a:hover,
-.nav-primary-links a.active {
-  color: var(--primary);
-  background: rgba(11, 45, 82, 0.05);
-}
-
-[data-theme="dark"] .nav-primary-links a:hover,
-[data-theme="dark"] .nav-primary-links a.active {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-/* ---------- Magical Drawer ---------- */
-.nav-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(6, 18, 32, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--t) var(--ease), visibility var(--t) var(--ease);
-}
-
-.nav-backdrop.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.magical-drawer {
-  position: fixed;
-  inset-block: 0;
-  inset-inline-end: -100%;
-  width: min(380px, 85vw);
-  background: var(--glass-bg);
-  backdrop-filter: blur(30px);
-  border-inline-start: 1px solid var(--glass-border);
-  box-shadow: var(--sh-lg);
-  display: flex;
-  flex-direction: column;
-  transition: inset-inline-end var(--t-slow) var(--ease-bounce);
-  z-index: 999;
-  overflow: hidden;
-}
-
-.magical-drawer.open {
-  inset-inline-end: 0;
-}
-
-.drawer-header {
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-
-.drawer-close {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text);
-  transition: all var(--t-fast);
-}
-
-.drawer-close:hover {
-  color: var(--danger);
-  transform: scale(1.1);
-}
-
-.drawer-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.drawer-body a {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.4rem;
-  border-radius: var(--r-md);
-  font-size: var(--fs-lg);
-  font-weight: 800;
-  color: var(--text);
-  background: var(--surface-2);
-  transition: all var(--t-fast);
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.magical-drawer.open .drawer-body a {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.drawer-body a:hover,
-.drawer-body a.active {
-  background: var(--primary);
-  color: #fff;
-  transform: translateX(-6px);
-  box-shadow: var(--sh-md);
-}
-
-html[dir="ltr"] .drawer-body a:hover {
-  transform: translateX(6px);
-}
-
-.drawer-body a .ic {
-  font-size: 1.4rem;
-}
-
-.drawer-footer {
-  padding: 2rem;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
-
-@media (max-width: 960px) {
-  .nav-primary-links {
-    display: none;
-  }
-  .nav-toggle {
-    display: grid;
-  }
-}
-
-/* ---------- Page Hero ---------- */
-.page-hero {
-  position: relative;
-  background: linear-gradient(135deg, var(--you-navy), #071e38);
-  color: #fff;
-  padding: clamp(5rem, 12vw, 7rem) 0 clamp(3rem, 6vw, 4rem);
-  overflow: hidden;
-}
-
-.page-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(91,168,41,0.25), transparent 60%);
-  pointer-events: none;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(123,208,67,0.2), transparent 70%);
-  bottom: -200px;
-  inset-inline-end: -150px;
-  border-radius: 50%;
-  animation: floatOrb 18s infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-5%, -5%) scale(1.1); }
-}
-
-.page-hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-}
-
-.breadcrumb {
-  font-size: var(--fs-sm);
-  color: rgba(255,255,255,0.7);
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.breadcrumb a {
-  transition: color var(--t);
-}
-
-.breadcrumb a:hover {
-  color: var(--accent);
-}
-
-.page-hero h1 {
-  font-size: var(--fs-4xl);
-  font-weight: 900;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-}
-
-.page-hero p {
-  font-size: var(--fs-xl);
-  color: rgba(255,255,255,0.85);
-  max-width: 70ch;
-}
-
-/* ---------- Partner Logos Grid ---------- */
-.partner-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
-.partner-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--r-lg);
-  padding: 2rem;
-  text-align: center;
-  transition: all var(--t) var(--ease-out-expo);
-}
-
-.partner-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-  box-shadow: var(--sh-md);
-}
-
-.partner-card .logo {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.partner-card h4 {
-  font-size: var(--fs-base);
-  font-weight: 800;
-  color: var(--text);
-  margin-top: 0.5rem;
-}
-
-/* ---------- CTA Band ---------- */
-.cta-band {
-  background: linear-gradient(135deg, var(--you-navy), var(--you-navy-700));
-  color: #fff;
-  border-radius: var(--r-xl);
-  padding: clamp(3rem, 6vw, 5rem);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--sh-glow-primary);
-}
-
-.cta-band::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(91,168,41,0.3), transparent 70%);
-  pointer-events: none;
-}
-
-.cta-band h2 {
-  font-size: var(--fs-3xl);
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-
-/* ---------- Footer ---------- */
-.site-footer {
-  background: #061220;
-  color: #cdddf0;
-  margin-top: 4rem;
-  border-top: 4px solid var(--you-green);
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
-  gap: 2rem;
-  padding-block: 4rem;
-}
-
-.footer-brand img {
-  height: 50px;
-  filter: brightness(0) invert(1);
-}
-
-.site-footer h4 {
-  color: #fff;
-  font-weight: 900;
-  margin-bottom: 1.2rem;
-}
-
-.site-footer a {
-  color: #8ba8c8;
-  display: block;
-  padding: 0.4rem 0;
-  transition: all var(--t-fast);
-  font-weight: 600;
-}
-
-.site-footer a:hover {
-  color: var(--you-green-400);
-  transform: translateX(6px);
-}
-
-html[dir="rtl"] .site-footer a:hover {
-  transform: translateX(-6px);
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.05);
-  padding-block: 1.5rem;
-  text-align: center;
-  font-size: var(--fs-sm);
-}
-
-/* ---------- Utils ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-}
-
-.reveal.in {
-  opacity: 1;
-  transform: none;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.eyebrow {
-  color: var(--accent);
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  font-size: var(--fs-xs);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.h-title {
-  font-size: var(--fs-3xl);
-  font-weight: 900;
-  color: var(--text);
-  line-height: 1.15;
-}
-
-@media (max-width: 768px) {
-  .page-hero h1 {
-    font-size: var(--fs-3xl);
-  }
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-  .partner-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-</style>
+<link rel="stylesheet" href="a.css">
 </head>
 <body>
 <div class="scroll-progress"></div>
@@ -563,10 +17,14 @@ html[dir="rtl"] .site-footer a:hover {
 <header class="site-header" data-header>
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="../shared/logo.svg" alt="YOU for Peace and Development">
+      <img src="../shared/logo.svg" alt="YOU Logo">
+      <div class="brand-text">
+        <span class="brand-title" data-ar="منظمة يو" data-en="YOU Org">منظمة يو</span>
+        <span class="brand-subtitle" data-ar="للسلام والتنمية" data-en="For Peace & Dev">للسلام والتنمية</span>
+      </div>
     </a>
     <div class="nav-primary-links">
-      <a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a href="index.html" class="active" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
       <a href="about.html" data-ar="من نحن" data-en="About">من نحن</a>
       <a href="programs.html" data-ar="البرامج" data-en="Programs">البرامج</a>
       <a href="projects.html" data-ar="المشاريع" data-en="Projects">المشاريع</a>
@@ -574,33 +32,81 @@ html[dir="rtl"] .site-footer a:hover {
       <a href="volunteers.html" data-ar="التطوع" data-en="Volunteer">التطوع</a>
     </div>
     <div class="nav-actions">
+      <a href="support.html" class="header-donate-btn" data-ar="تبرّع" data-en="Donate">تبرّع</a>
+      <a href="volunteers.html" class="header-volunteer-btn" data-ar="تطوّع" data-en="Volunteer">تطوّع</a>
       <button class="icon-btn" onclick="YOUtoggleLang()" aria-label="Language"><span data-lang-label>EN</span></button>
       <button class="icon-btn" onclick="YOUtoggleTheme()" aria-label="Theme"><span data-theme-icon>🌙</span></button>
+      <button class="icon-btn" onclick="openAdminLogin()" aria-label="Admin Profile"><span class="ic">👤</span></button>
       <button class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </div>
 </header>
 
 <!-- Magical Drawer -->
-<div class="nav-backdrop" data-nav-backdrop></div>
 <aside class="magical-drawer" data-nav-menu>
   <div class="drawer-header">
+    <div class="drawer-brand">
+      <img src="../shared/logo.svg" alt="YOU Logo" class="drawer-logo">
+      <div class="brand-text">
+        <span class="brand-title" data-ar="منظمة يو" data-en="YOU Org">منظمة يو</span>
+        <span class="brand-subtitle" data-ar="للسلام والتنمية" data-en="For Peace & Dev">للسلام والتنمية</span>
+      </div>
+    </div>
     <span class="drawer-close" data-nav-toggle>✕</span>
   </div>
   <div class="drawer-body">
-    <a href="index.html"><span class="ic">🏠</span> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
-    <a href="about.html"><span class="ic">📖</span> <span data-ar="من نحن" data-en="About">من نحن</span></a>
-    <a href="programs.html"><span class="ic">📚</span> <span data-ar="البرامج" data-en="Programs">البرامج</span></a>
-    <a href="projects.html"><span class="ic">📁</span> <span data-ar="المشاريع" data-en="Projects">المشاريع</span></a>
-    <a href="news.html"><span class="ic">📰</span> <span data-ar="الإعلام" data-en="Media">الإعلام</span></a>
-    <a href="transparency.html"><span class="ic">🔍</span> <span data-ar="الشفافية" data-en="Transparency">الشفافية</span></a>
-    <a href="volunteers.html"><span class="ic">🤝</span> <span data-ar="التطوع" data-en="Volunteer">التطوع</span></a>
-    <a href="training.html"><span class="ic">🎓</span> <span data-ar="التدريب" data-en="Training">التدريب</span></a>
-    <a href="partners.html" class="active"><span class="ic">🤝</span> <span data-ar="الشركاء" data-en="Partners">الشركاء</span></a>
-    <a href="contact.html"><span class="ic">📞</span> <span data-ar="تواصل" data-en="Contact">تواصل</span></a>
-    <a href="support.html" class="btn btn-primary" style="margin-top:1rem;"><span data-ar="ادعمنا" data-en="Support Us">ادعمنا</span></a>
+    <!-- Section 1: Public Pages -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="📋 الصفحات العامة" data-en="📋 Public Pages">📋 الصفحات العامة</h3>
+      <div class="drawer-links-grid">
+        <a href="index.html" class="drawer-link active" style="--i:1"><span class="ic">🏠</span> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+        <a href="about.html" class="drawer-link" style="--i:2"><span class="ic">📖</span> <span data-ar="من نحن" data-en="About">من نحن</span></a>
+        <a href="programs.html" class="drawer-link" style="--i:3"><span class="ic">📚</span> <span data-ar="البرامج" data-en="Programs">البرامج</span></a>
+        <a href="projects.html" class="drawer-link" style="--i:4"><span class="ic">📁</span> <span data-ar="المشاريع" data-en="Projects">المشاريع</span></a>
+        <a href="news.html" class="drawer-link" style="--i:5"><span class="ic">📰</span> <span data-ar="الأخبار والإعلام" data-en="News & Media">الأخبار والإعلام</span></a>
+        <a href="transparency.html" class="drawer-link" style="--i:6"><span class="ic">🔍</span> <span data-ar="الشفافية والتقارير" data-en="Transparency">الشفافية والتقارير</span></a>
+        <a href="volunteers.html" class="drawer-link" style="--i:7"><span class="ic">🤝</span> <span data-ar="التطوع" data-en="Volunteer">التطوع</span></a>
+        <a href="training.html" class="drawer-link" style="--i:8"><span class="ic">🎓</span> <span data-ar="التدريب والتمكين" data-en="Training">التدريب والتمكين</span></a>
+        <a href="partners.html" class="drawer-link" style="--i:9"><span class="ic">💼</span> <span data-ar="الشركاء والمانحين" data-en="Partners">الشركاء والمانحين</span></a>
+        <a href="stories.html" class="drawer-link" style="--i:10"><span class="ic">⭐</span> <span data-ar="قصص النجاح" data-en="Success Stories">قصص النجاح</span></a>
+        <a href="contact.html" class="drawer-link" style="--i:11"><span class="ic">📞</span> <span data-ar="اتصل بنا" data-en="Contact">اتصل بنا</span></a>
+        <a href="support.html" class="drawer-link" style="--i:12"><span class="ic">❤️</span> <span data-ar="ادعمنا وتبرع" data-en="Support & Donate">ادعمنا وتبرع</span></a>
+        <a href="search.html" class="drawer-link" style="--i:13"><span class="ic">🔍</span> <span data-ar="البحث" data-en="Search">البحث</span></a>
+      </div>
+    </div>
+
+    <!-- Section 2: User Space -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="👤 حساب المستخدم" data-en="👤 User Space">👤 حساب المستخدم</h3>
+      <div class="drawer-links-grid">
+        <a href="volunteers.html#apply" class="drawer-link" style="--i:14"><span class="ic">📝</span> <span data-ar="تقديم طلب تطوع" data-en="Volunteer Request">تقديم طلب تطوع</span></a>
+        <a href="support.html#donate-form" class="drawer-link" style="--i:15"><span class="ic">💳</span> <span data-ar="تبرع سريع" data-en="Quick Donate">تبرع سريع</span></a>
+        <a href="contact.html#message-form" class="drawer-link" style="--i:16"><span class="ic">✉️</span> <span data-ar="أرسل رسالة" data-en="Send Message">أرسل رسالة</span></a>
+      </div>
+    </div>
+
+    <!-- Section 3: Administration -->
+    <div class="drawer-section">
+      <h3 class="drawer-section-title" data-ar="🔒 بوابة الإدارة" data-en="🔒 Admin Portal">🔒 بوابة الإدارة</h3>
+      <div class="drawer-links-grid">
+        <a href="javascript:openAdminLogin()" class="drawer-link guest-only-link" style="--i:17"><span class="ic">🔑</span> <span data-ar="تسجيل الدخول" data-en="Admin Login">تسجيل الدخول</span></a>
+        <a href="admin/index.html" class="drawer-link admin-logged-link" style="--i:18; display:none;"><span class="ic">📊</span> <span data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</span></a>
+        <a href="admin/projects.html" class="drawer-link admin-logged-link" style="--i:19; display:none;"><span class="ic">📁</span> <span data-ar="إدارة المشاريع" data-en="Projects Mgt">إدارة المشاريع</span></a>
+        <a href="admin/donations.html" class="drawer-link admin-logged-link" style="--i:20; display:none;"><span class="ic">💰</span> <span data-ar="التبرعات والمانحين" data-en="Donations Mgt">التبرعات والمانحين</span></a>
+        <a href="admin/news.html" class="drawer-link admin-logged-link" style="--i:21; display:none;"><span class="ic">📰</span> <span data-ar="إدارة الإعلام" data-en="Media Mgt">إدارة الإعلام</span></a>
+        <a href="admin/volunteers.html" class="drawer-link admin-logged-link" style="--i:22; display:none;"><span class="ic">🤝</span> <span data-ar="إدارة المتطوعين" data-en="Volunteers Mgt">إدارة المتطوعين</span></a>
+        <a href="admin/reports.html" class="drawer-link admin-logged-link" style="--i:23; display:none;"><span class="ic">📈</span> <span data-ar="التقارير المالية" data-en="Financial Reports">التقارير المالية</span></a>
+        <a href="admin/users.html" class="drawer-link admin-logged-link" style="--i:24; display:none;"><span class="ic">👥</span> <span data-ar="المستخدمين والصلاحيات" data-en="Users Mgt">المستخدمين والصلاحيات</span></a>
+        <a href="admin/settings.html" class="drawer-link admin-logged-link" style="--i:25; display:none;"><span class="ic">⚙️</span> <span data-ar="الإعدادات العامة" data-en="General Settings">الإعدادات العامة</span></a>
+        <a href="javascript:adminLogout()" class="drawer-link admin-logged-link logout-btn-drawer" style="--i:26; display:none; color:var(--danger);"><span class="ic">🚪</span> <span data-ar="تسجيل الخروج" data-en="Logout">تسجيل الخروج</span></a>
+      </div>
+    </div>
   </div>
   <div class="drawer-footer">
+    <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:1rem;">
+      <button class="icon-btn" onclick="YOUtoggleLang()" aria-label="Language" style="width:auto; padding:0 1rem; border-radius:var(--r-full);"><span data-lang-label>EN</span></button>
+      <button class="icon-btn" onclick="YOUtoggleTheme()" aria-label="Theme" style="width:auto; padding:0 1rem; border-radius:var(--r-full);"><span data-theme-icon>🌙</span> <span data-ar="المظهر" data-en="Theme">المظهر</span></button>
+    </div>
     <small>© YOU for Peace and Development</small>
   </div>
 </aside>
@@ -670,6 +176,7 @@ html[dir="rtl"] .site-footer a:hover {
 </main>
 
 <!-- Footer -->
+<!-- ========== FOOTER ========== -->
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
@@ -679,7 +186,7 @@ html[dir="rtl"] .site-footer a:hover {
     <div>
       <h4 data-ar="روابط" data-en="Links">روابط</h4>
       <a href="about.html" data-ar="من نحن" data-en="About">من نحن</a>
-      <a href="transparency.html" data-ar="الشفافية" data-en="Transparency">الشفافية</a>
+      <a href="programs.html" data-ar="البرامج" data-en="Programs">البرامج</a>
       <a href="projects.html" data-ar="المشاريع" data-en="Projects">المشاريع</a>
     </div>
     <div>
@@ -700,10 +207,11 @@ html[dir="rtl"] .site-footer a:hover {
 </footer>
 
 <!-- Admin Login Modal -->
-<div class="admin-modal-overlay" id="adminLoginModal" style="position: fixed; inset: 0; background: rgba(6, 18, 32, 0.85); backdrop-filter: blur(16px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; padding: 2rem;">
-  <div class="admin-modal-card" style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 3rem 2.5rem; width: 90%; max-width: 420px; text-align: center; position: relative; transform: translateY(40px) scale(0.92); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);">
-    <button class="close-modal" onclick="closeAdminLogin()" style="position: absolute; top: 1.2rem; right: 1.2rem; width: 36px; height: 36px; border-radius: 50%; background: var(--bg-muted); display: grid; place-items: center; font-weight: bold; cursor: pointer;">✕</button>
-    <div class="modal-icon" style="width: 64px; height: 64px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--you-navy), #0d4a8b); color: #fff; font-size: 2rem; display: grid; place-items: center; border-radius: 50%;">🔒</div>
+<!-- ========== ADMIN LOGIN MODAL ========== -->
+<div class="admin-modal-overlay" id="adminLoginModal">
+  <div class="admin-modal-card">
+    <button class="close-modal" onclick="closeAdminLogin()">✕</button>
+    <div class="modal-icon">🔒</div>
     <h3 data-ar="بوابة الإدارة" data-en="Admin Portal">بوابة الإدارة</h3>
     <p data-ar="يرجى إدخال رمز الإدارة للوصول إلى لوحة التحكم." data-en="Please enter the admin passcode to access the dashboard.">يرجى إدخال رمز الإدارة للوصول إلى لوحة التحكم.</p>
     <div class="field">
@@ -724,10 +232,12 @@ html[dir="rtl"] .site-footer a:hover {
     if(inp && inp.value === 'admin123') {
       sessionStorage.setItem('adminLoggedIn', 'true');
       window.location.href = 'admin/index.html';
-    } else if(err) { err.hidden = false; }
+    } else if(err) err.hidden = false;
   }
   document.addEventListener('click', function(e) {
-    if(e.target.classList && e.target.classList.contains('admin-modal-overlay')) e.target.classList.remove('active');
+    if(e.target.classList && e.target.classList.contains('admin-modal-overlay')) {
+      document.getElementById('adminLoginModal').classList.remove('active');
+    }
   });
 </script>
 </body>
