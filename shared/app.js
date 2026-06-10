@@ -91,9 +91,9 @@
     counters.forEach(c => cio.observe(c));
 
     /* Mobile nav */
-    const toggle = document.querySelector('[data-nav-toggle]');
+    const toggles = document.querySelectorAll('[data-nav-toggle]');
     const menu = document.querySelector('[data-nav-menu]');
-    if (toggle && menu) {
+    if (toggles.length > 0 && menu) {
       const backdrop = document.createElement('div');
       backdrop.className = 'nav-backdrop';
       document.body.appendChild(backdrop);
@@ -101,11 +101,11 @@
       const toggleMenu = () => {
         const isOpen = menu.classList.toggle('open');
         backdrop.classList.toggle('active', isOpen);
-        toggle.setAttribute('aria-expanded', isOpen);
+        toggles.forEach(toggle => toggle.setAttribute('aria-expanded', isOpen));
         document.body.style.overflow = isOpen ? 'hidden' : '';
       };
 
-      toggle.addEventListener('click', toggleMenu);
+      toggles.forEach(toggle => toggle.addEventListener('click', toggleMenu));
       backdrop.addEventListener('click', toggleMenu);
       menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
         if(menu.classList.contains('open')) toggleMenu();
@@ -201,7 +201,11 @@
 
   window.adminLogout = function() {
     sessionStorage.removeItem('adminLoggedIn');
-    window.location.href = '../index.html';
+    if (window.location.pathname.includes('/admin/')) {
+      window.location.href = '../index.html';
+    } else {
+      window.location.reload();
+    }
   };
 
   /* Protect Admin Pages */
@@ -210,5 +214,30 @@
       window.location.href = '../index.html';
     }
   }
+
+  /* Update drawer links on load */
+  document.addEventListener('DOMContentLoaded', function() {
+    const isLogged = sessionStorage.getItem('adminLoggedIn') === 'true';
+    document.querySelectorAll('.admin-logged-link').forEach(el => {
+      el.style.display = isLogged ? 'flex' : 'none';
+    });
+    document.querySelectorAll('.guest-only-link').forEach(el => {
+      el.style.display = isLogged ? 'none' : 'flex';
+    });
+
+    /* Highlight active link based on current page filename */
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-primary-links a, .drawer-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href) {
+        const linkFile = href.split('#')[0].split('?')[0];
+        if (linkFile === currentFile) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      }
+    });
+  });
 
 })();
