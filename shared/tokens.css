@@ -13,6 +13,8 @@
   --you-green-600: #46851d;
   --you-green-400: #7bd043;
   --you-gold: #E0A93B;
+  --you-purple: #764BA2;
+  --you-purple-dark: #432b5e;
 
   /* ---- Semantic (light mode default) ---- */
   --bg: #f8fbfd;
@@ -97,6 +99,8 @@
   --primary-contrast: #ffffff;
   --accent: #7bd043;
   --accent-contrast: #031408;
+  --you-purple: #9b72cf;
+  --you-purple-dark: #2d1844;
 
   --sh-sm: 0 2px 10px rgba(0,0,0,.6);
   --sh-md: 0 10px 30px rgba(0,0,0,.7), 0 4px 12px rgba(0,0,0,.4);
@@ -231,4 +235,221 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .nav-toggle{display:none}
 @media(max-width:920px){
   .nav-toggle{display:grid}
+}
+
+
+/* --- LEGENDARY DESIGN OVERRIDES --- */
+
+/* 1. Dark mode compatibility for the PNG logo */
+[data-theme="dark"] .brand img,
+[data-theme="dark"] .drawer-logo,
+[data-theme="dark"] .footer-brand img,
+[data-theme="dark"] .admin-logo,
+[data-theme="dark"] .sidebar-header img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* 2. Hero Title responsiveness and overflow clipping fix */
+.hero-title {
+  padding-inline: 0.05em 0.15em !important;
+  line-height: 1.25 !important;
+  overflow: visible !important;
+  display: inline-block !important;
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+}
+
+/* 3. Gradient Improvements for Heroes and Footer (Purple-Blue-Green) */
+.hero-magical,
+.page-hero {
+  background: linear-gradient(135deg, var(--you-purple) 0%, var(--you-navy) 50%, var(--you-green-600) 100%) !important;
+}
+
+.site-footer {
+  background: linear-gradient(135deg, var(--you-purple-dark) 0%, var(--you-navy-700) 50%, var(--you-green-600) 100%) !important;
+}
+
+/* Theme compatibility for dark mode gradients */
+[data-theme="dark"] .hero-magical,
+[data-theme="dark"] .page-hero {
+  background: linear-gradient(135deg, var(--you-purple-dark) 0%, #061930 50%, #153008 100%) !important;
+}
+
+[data-theme="dark"] .site-footer {
+  background: linear-gradient(135deg, var(--you-purple-dark) 0%, #04101e 50%, #0c1a05 100%) !important;
+}
+/* Logo Size Harmonization & Thickness */
+.brand img {
+  height: 60px !important;
+  filter: drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .brand img {
+  filter: invert(1) brightness(2) drop-shadow(0px 0px 0.5px rgba(255, 255, 255, 0.2));
+}
+
+.site-header.scrolled .brand img {
+  height: 50px !important;
+}
+
+.drawer-logo {
+  height: 52px !important;
+  filter: drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.2));
+}
+
+[data-theme="dark"] .drawer-logo {
+  filter: invert(1) brightness(2) drop-shadow(0px 0px 0.5px rgba(255, 255, 255, 0.2));
+}
+
+.footer-brand img {
+  height: 64px !important;
+  max-width: 100%;
+}
+
+
+/* =========================================
+   Phase 2 Fixes (Grids, Search, Stats, Bugfixes)
+   ========================================= */
+
+/* Fix: Missing Grid Layouts for inner pages */
+.news-grid, .gallery-grid, .partner-grid, .course-grid, .report-grid, .stats-row {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Specific Grid Columns */
+.news-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.partner-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); align-items: center; justify-items: center; }
+.course-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.report-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.stats-row { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+/* Card Styles */
+.news-card, .course-card, .report-card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+.news-card:hover, .course-card:hover, .report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-lg);
+}
+.news-card .thumb img { width: 100%; height: 200px; object-fit: cover; }
+.news-card .body { padding: 1.5rem; }
+.course-card .body { padding: 1.5rem; text-align: center; }
+.course-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.gallery-card {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-card:hover img { transform: scale(1.1); }
+.gallery-card .meta {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
+  padding: 2rem 1rem 1rem; color: #fff; text-align: center;
+}
+
+.partner-card {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-sm);
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+.partner-card:hover { transform: scale(1.05); }
+.partner-card .logo { font-size: 3rem; margin-bottom: 1rem; }
+
+.stat-box {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: var(--r-xl);
+  text-align: center;
+  box-shadow: var(--sh-md);
+}
+.stat-box .number { font-size: 3rem; font-weight: 900; color: var(--you-green); margin-bottom: 0.5rem; }
+
+/* Fix: Stats Text Visibility */
+.stat-label {
+  color: #ffffff !important;
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.7) !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+/* Fix: Disappearing Story Images */
+.story-card {
+  isolation: isolate;
+  z-index: 1;
+}
+.story-card img {
+  z-index: -1 !important;
+}
+
+/* Fix: Large Search Box */
+.search-box-large {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  padding: 1rem 1.5rem;
+  border-radius: var(--r-full);
+  box-shadow: var(--sh-lg);
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+}
+.search-box-large:focus-within {
+  border-color: var(--you-green);
+  box-shadow: 0 0 20px rgba(91, 168, 41, 0.2);
+}
+.search-box-large .search-icon {
+  font-size: 2rem;
+  color: var(--text-muted);
+}
+.search-box-large input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+}
+.search-box-large button {
+  background: linear-gradient(135deg, var(--you-green), var(--you-green-400));
+  color: #fff;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.search-box-large button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-box-large {
+    flex-direction: column;
+    border-radius: var(--r-xl);
+    padding: 1.5rem;
+  }
+  .search-box-large input { font-size: 1.2rem; text-align: center; }
+  .search-box-large button { width: 100%; }
 }

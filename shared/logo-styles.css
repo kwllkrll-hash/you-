@@ -1,0 +1,28 @@
+/* Logo Size Harmonization & Thickness */
+.brand img {
+  height: 60px !important;
+  filter: drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .brand img {
+  filter: invert(1) brightness(2) drop-shadow(0px 0px 0.5px rgba(255, 255, 255, 0.2));
+}
+
+.site-header.scrolled .brand img {
+  height: 50px !important;
+}
+
+.drawer-logo {
+  height: 52px !important;
+  filter: drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.2));
+}
+
+[data-theme="dark"] .drawer-logo {
+  filter: invert(1) brightness(2) drop-shadow(0px 0px 0.5px rgba(255, 255, 255, 0.2));
+}
+
+.footer-brand img {
+  height: 64px !important;
+  max-width: 100%;
+}

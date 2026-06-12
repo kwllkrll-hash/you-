@@ -318,7 +318,7 @@ body {
 }
 
 .nav-toggle {
-  display: none;
+  display: flex;
 }
 
 /* Mobile responsive header links */
